@@ -48,6 +48,14 @@ isBoycott(X):-
     boycott_company(X, _);
     alternative(X, _).
 
+% quesition 7
+whyToBoycott(Company, Justification):-
+    boycott_company(Company, Justification).
+
+whyToBoycott(Item, Justification):-
+    item(Item, Company, ItemPrice),
+    boycott_company(Company, Justification).
+
 
 % question 11
 getTheDifferenceInPriceBetweenItemAndAlternative(Item, Alternative, DiffPrice):-
