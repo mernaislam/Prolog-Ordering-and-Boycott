@@ -44,9 +44,12 @@ calcPriceOfOrder(Username, OrderID, TotalPrice):-
     iterate(Items, TotalPrice).
 
 % question 6
-isBoycott(X):-
-    boycott_company(X, _);
-    alternative(X, _).
+isBoycott(Company):-
+    boycott_company(Company, _).
+
+isBoycott(Item):-
+    item(Item, Company, _),
+    isBoycott(Company).
 
 % quesition 7
 whyToBoycott(Company, Justification):-
@@ -56,6 +59,25 @@ whyToBoycott(Item, Justification):-
     item(Item, Company, ItemPrice),
     boycott_company(Company, Justification).
 
+% question 9
+replaceItem(Item, NewItem):-
+    isBoycott(Item), alternative(Item, _) -> alternative(Item, NewItem) ; NewItem = Item.
+
+replace([], []).
+
+replace([S| E], [Alternative| NewList]):-
+    replaceItem(S, Alternative),
+    replace(E, NewList).
+    
+replaceBoycottItemsFromAnOrder(Username, OrderID, NewList):-
+    customer(CustID, Username),
+    order(CustID, OrderID, L),
+    replace(L, NewList).
+
+% question 10
+calcPriceAfterReplacingBoycottItemsFromAnOrder(Username, OrderID, NewList, TotalPrice):-
+    replaceBoycottItemsFromAnOrder(Username, OrderID, NewList),
+    iterate(NewList, TotalPrice).
 
 % question 11
 getTheDifferenceInPriceBetweenItemAndAlternative(Item, Alternative, DiffPrice):-
