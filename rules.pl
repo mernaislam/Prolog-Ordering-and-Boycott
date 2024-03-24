@@ -108,6 +108,32 @@ getTheDifferenceInPriceBetweenItemAndAlternative(Item, Alternative, DiffPrice):-
     item(Alternative, _, AltPrice),
     DiffPrice is ItemPrice - AltPrice.
 
+% question 12
+add_item(Type, Name, Price) :-
+    assertz(item(Type, Name, Price)),
+    save_knowledge.
+insert_alternative(BoycottItem,AltItem):-
+    assertz(alternative(Type,Name,Price)),
+    save_knowledge.
+insert_newBoycott(Name,Why):-
+    assertz(boycott_company(Type,Name,Price)),
+    save_knowledge.
+
+remove_item(Type,Name,Price):-
+    retract(item(Type,Name,Price)),
+    save_knowledge.
+remove_alternative(BoycottItem,AltItem):-
+    retract(alternative(Type,Name,Price)),
+    save_knowledge.
+remove_newBoycott(Name,Why):-
+    retract(boycott_company(Type,Name,Price)),
+    save_knowledge.
+
+save_knowledge :-
+    tell('data.pl'),
+    listing,
+    told.
+
 
 
 
