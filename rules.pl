@@ -109,6 +109,9 @@ getTheDifferenceInPriceBetweenItemAndAlternative(Item, Alternative, DiffPrice):-
     DiffPrice is ItemPrice - AltPrice.
 
 % question 12
+:- dynamic item/3.
+:- dynamic alternative/2.
+:- dynamic boycott_company/2.
 add_item(Type, Name, Price) :-
     assertz(item(Type, Name, Price)),
     save_knowledge.
