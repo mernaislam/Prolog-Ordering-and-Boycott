@@ -112,21 +112,21 @@ getTheDifferenceInPriceBetweenItemAndAlternative(Item, Alternative, DiffPrice):-
 add_item(Type, Name, Price) :-
     assertz(item(Type, Name, Price)),
     save_knowledge.
-insert_alternative(BoycottItem,AltItem):-
-    assertz(alternative(Type,Name,Price)),
+add_alternative(BoycottItem,AltItem):-
+    assertz(alternative(BoycottItem,AltItem)),
     save_knowledge.
-insert_newBoycott(Name,Why):-
-    assertz(boycott_company(Type,Name,Price)),
+add_newBoycott(Name,Why):-
+    assertz(boycott_company(Name,Why)),
     save_knowledge.
 
 remove_item(Type,Name,Price):-
     retract(item(Type,Name,Price)),
     save_knowledge.
 remove_alternative(BoycottItem,AltItem):-
-    retract(alternative(Type,Name,Price)),
+    retract(alternative(BoycottItem,AltItem)),
     save_knowledge.
 remove_newBoycott(Name,Why):-
-    retract(boycott_company(Type,Name,Price)),
+    retract(boycott_company(Name,Why)),
     save_knowledge.
 
 save_knowledge :-
