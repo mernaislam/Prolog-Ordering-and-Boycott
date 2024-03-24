@@ -27,6 +27,11 @@ getItemsInOrderById(Name, OrderID, Items):-
     customer(ID, Name),
     order(ID, OrderID, Items), !.
 
+% question 4
+getNumOfItems(Name,OrderID,Count):-
+    getItemsInOrderById(Name,OrderID,Items),
+    length(Items, Count).
+
 % question 5
 getPrice(Item, ItemPrice):-
     item(Item, _, ItemPrice).
