@@ -32,7 +32,7 @@ getNumOfItems(Name,OrderID,Count):-
     getItemsInOrderById(Name,OrderID,Items),
     getLength(Items,Count).
     getLength([],0).
-    getLength([H|T],Count):-
+    getLength([_|T],Count):-
         getLength(T,Tmp),
         Count is 1+Tmp.
 
@@ -65,7 +65,7 @@ whyToBoycott(Company, Justification):-
     boycott_company(Company, Justification).
 
 whyToBoycott(Item, Justification):-
-    item(Item, Company, ItemPrice),
+    item(Item, Company, _),
     boycott_company(Company, Justification).
 
 % question 8
@@ -78,8 +78,8 @@ removeBoycottItemsFromAnOrder(Name,OrderID,NewList):-
         removeBoyCottedItems(Rest,NewList).
     removeBoyCottedItems([Item|Rest] , [Item|NewList]):-
         removeBoyCottedItems(Rest,NewList).
-    
-        
+
+
 
 % question 9
 replaceItem(Item, NewItem):-
@@ -90,11 +90,11 @@ replace([], []).
 replace([S| E], [Alternative| NewList]):-
     replaceItem(S, Alternative),
     replace(E, NewList).
-    
+
 replaceBoycottItemsFromAnOrder(Username, OrderID, NewList):-
     customer(CustID, Username),
     order(CustID, OrderID, L),
-    replace(L, NewList).
+    replace(L, NewList),!.
 
 % question 10
 calcPriceAfterReplacingBoycottItemsFromAnOrder(Username, OrderID, NewList, TotalPrice):-
